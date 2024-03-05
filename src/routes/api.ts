@@ -1,51 +1,23 @@
 import { Router } from 'express';
-import jetValidator from 'jet-validator';
 
 import Paths from '../constants/Paths';
-import User from '@src/models/User';
-import UserRoutes from './UserRoutes';
+import ResponseRoutes from './ResponseRoutes';
 
 
 // **** Variables **** //
-
-const apiRouter = Router(),
-  validate = jetValidator();
-
+const apiRouter = Router();
 
 // ** Add UserRouter ** //
+const responseRouter = Router({ mergeParams: true });
 
-const userRouter = Router();
-
-// Get all users
-userRouter.get(
-  Paths.Users.Get,
-  UserRoutes.getAll,
+// Get all responses
+responseRouter.get(
+  Paths.Responses.Get,
+  ResponseRoutes.getAll,
 );
 
-// Add one user
-userRouter.post(
-  Paths.Users.Add,
-  validate(['user', User.isUser]),
-  UserRoutes.add,
-);
-
-// Update one user
-userRouter.put(
-  Paths.Users.Update,
-  validate(['user', User.isUser]),
-  UserRoutes.update,
-);
-
-// Delete one user
-userRouter.delete(
-  Paths.Users.Delete,
-  validate(['id', 'number', 'params']),
-  UserRoutes.delete,
-);
-
-// Add UserRouter
-apiRouter.use(Paths.Users.Base, userRouter);
-
+// Add ResponseRouter
+apiRouter.use(Paths.Responses.Base, responseRouter);
 
 // **** Export default **** //
 
