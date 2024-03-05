@@ -60,7 +60,7 @@ function filterCollection(collection: ResponseCollection, query: ResponseParams)
   return {
     responses: filteredResponses,
     totalResponses: filteredResponses.length,
-    pageCount: filteredResponses.length / Number(query.limit),
+    pageCount: Math.ceil(filteredResponses.length / Number(query.limit)),
   };
 }
 
