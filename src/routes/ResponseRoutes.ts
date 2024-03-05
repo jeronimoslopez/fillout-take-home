@@ -5,8 +5,9 @@ import { IReq, IRes } from './types/express/misc';
 
 async function getAll(req: IReq, res: IRes) {
   const id = req.params.formId;
-  const response = await ResponseService.getAll(id);
-  return res.status(HttpStatusCodes.OK).json({ response });
+  const query = req.query;
+  const response = await ResponseService.getAll(id, query);
+  return res.status(HttpStatusCodes.OK).json(response);
 }
 
 export default {

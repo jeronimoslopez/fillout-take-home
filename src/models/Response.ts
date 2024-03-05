@@ -41,42 +41,67 @@ export enum CalculationType {
     String = 'String'
 }
 
-export interface IQuestion {
+export enum FilterCondition {
+    Equals = 'equals',
+    DoesNotEqual = 'does_not_equal',
+    GreaterThan = 'greater_than',
+    LessThan = 'less_than'
+}
+
+export type Question = {
     id: string;
     name: string;
     type: QuestionType;
     value: string;
 }
 
-export interface ICalculation {
+export type Calculation = {
     id: string;
     name: string;
     type: CalculationType;
     value: string;
 }
 
-export interface IUrlParameters {
+export type IUrlParameters = {
     id: string;
     name: string;
     value: string;
 }
 
-export interface IQuiz {
+export type IQuiz = {
     score: number;
     maxScore: number;
 }
 
-export interface IResponse {
-    questions: IQuestion[];
-    calculations: ICalculation[];
+export type Response = {
+    questions: Question[];
+    calculations: Calculation[];
     urlParameters: IUrlParameters[];
     quiz?: IQuiz;
     submissionId: string;
     submissionTime: string;
 }
 
-export interface IResponses {
-    responses: IResponse[];
+export type ResponseCollection = {
+    responses: Response[];
     totalResponses: number;
     pageCount: number;
+}
+
+export type ResponseFilter = {
+    id: string;
+    condition: FilterCondition;
+    value: number | string;
+}
+
+export type ResponseParams = {
+    limit?: string;
+    afterDate?: string;
+    beforeDate?: string;
+    offset?: string;
+    status?: 'in_progress' | 'finished';
+    includeEditLink?: string;
+    sort?: 'asc' | 'desc';
+    filters?: string;
+    [key: string]: any;
 }
